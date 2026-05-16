@@ -1,1 +1,6 @@
 build
+.cache
+.vscode
+
+# Woo!!!! Taskig is taskig against itself!!!!!!!!!
+.taskig

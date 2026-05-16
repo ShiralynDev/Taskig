@@ -1,0 +1,3 @@
+[submodule "external/SHA"]
+	path = external/SHA
+	url = https://github.com/khobaib529/SHA-implementation
