@@ -34,7 +34,7 @@ void CacheUtils::Cache::load(std::filesystem::path& path) {
     configFile.close();
 }
 
-void CacheUtils::Cache::save(std::filesystem::path& path) {
+void CacheUtils::Cache::save(std::filesystem::path& path, std::vector<Scan::Task>& tasks) {
     std::filesystem::path configFilePath = path / ".taskig";
     std::ofstream configFile(configFilePath);
 

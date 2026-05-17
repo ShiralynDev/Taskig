@@ -23,11 +23,11 @@ std::vector<std::filesystem::path> findAllFiles(std::filesystem::path path) {
     return foundFiles;
 };
 
-int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& cache) {
+int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& cache, Scan::TaskScan& taskScan) {
 
-    bool forceScan = false;
-    if (argc > 3) {
-        std::string arg = argv[3];
+    bool forceScan = true;
+    if (argc > 2) {
+        std::string arg = argv[2];
         if (arg == "-F" || arg == "--force")
             forceScan = true;
     }
@@ -59,17 +59,17 @@ int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& cache) {
     if (!forceScan) {
         for (auto& hash : pathHashes) {
             if (cache.hashes.find(hash.first) == cache.hashes.end()) {
-                // scan file
+                taskScan.ScanFile(hash.first);
                 cache.hashes.emplace(hash);
             }
         }
     } else {
-        // scan all files
+        for (auto& hash : pathHashes)
+            taskScan.ScanFile(hash.first);
         cache.hashes = pathHashes;
     }
 
-    cache.save(workingDirectory);
-
+    cache.save(workingDirectory, taskScan.tasks);
 
     return 0;
 }
