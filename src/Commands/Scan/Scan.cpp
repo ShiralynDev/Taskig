@@ -10,9 +10,9 @@
 #include "../../../external/SHA/include/sha.h"
 #include <unordered_map>
 
-std::vector<std::filesystem::path> findAllFiles(std::filesystem::path path) {
+std::vector<std::filesystem::path> findAllFiles(std::filesystem::path Path) {
     std::vector<std::filesystem::path> foundFiles;
-    for (auto const& entry : std::filesystem::directory_iterator{path}) {
+    for (auto const& entry : std::filesystem::directory_iterator{Path}) {
         if (entry.is_regular_file())
             foundFiles.push_back(entry);
         else if (entry.is_directory()) {
@@ -23,7 +23,7 @@ std::vector<std::filesystem::path> findAllFiles(std::filesystem::path path) {
     return foundFiles;
 };
 
-int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& cache, Scan::TaskScan& taskScan) {
+int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& Cache, Scan::TaskScan& TaskScan) {
 
     bool forceScan = true;
     if (argc > 2) {
@@ -54,22 +54,22 @@ int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& cache, Scan
         pathHashes.emplace(file, hash);
     }
 
-    cache.load(workingDirectory);
+    Cache.load(workingDirectory);
 
     if (!forceScan) {
         for (auto& hash : pathHashes) {
-            if (cache.hashes.find(hash.first) == cache.hashes.end()) {
-                taskScan.ScanFile(hash.first);
-                cache.hashes.emplace(hash);
+            if (Cache.hashes.find(hash.first) == Cache.hashes.end()) {
+                TaskScan.scanFile(hash.first);
+                Cache.hashes.emplace(hash);
             }
         }
     } else {
         for (auto& hash : pathHashes)
-            taskScan.ScanFile(hash.first);
-        cache.hashes = pathHashes;
+            TaskScan.scanFile(hash.first);
+        Cache.hashes = pathHashes;
     }
 
-    cache.save(workingDirectory, taskScan.tasks);
+    Cache.save(workingDirectory, TaskScan.tasks);
 
     return 0;
 }

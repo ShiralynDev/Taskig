@@ -7,18 +7,18 @@
 #include <string>
 #include <vector>
 
-void Scan::TaskScan::ScanFile(std::filesystem::path file) {
-    std::ifstream fileStream(file);
+void Scan::TaskScan::scanFile(std::filesystem::path File) {
+    std::ifstream fileStream(File);
 
     if (!fileStream.is_open()) {
-        std::cout << "Failed to open: " << file << std::endl;
+        std::cout << "Failed to open: " << File << std::endl;
         return;
     }
 
     {
         std::vector<int> tasksToRemove; // there is prob a much better way to do this
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.at(i).file == file)
+            if (tasks.at(i).file == File)
                 tasksToRemove.push_back(i);
         }
         for (int i = tasksToRemove.size(); i > 0; i--) {
@@ -40,7 +40,7 @@ void Scan::TaskScan::ScanFile(std::filesystem::path file) {
             continue;
 
         Task::Task foundTask;
-        foundTask.file = file;
+        foundTask.file = File;
         foundTask.line = i;
         foundTask.text = comment.substr(comment.find(taskigMarker) + (sizeof(taskigMarker) / sizeof(char))); // [taskig] better handling, for psychopaths that don't wanna add a space after their taskigt marker
         foundTask.author = "WIP";

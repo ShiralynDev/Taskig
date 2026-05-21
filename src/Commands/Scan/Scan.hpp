@@ -5,6 +5,6 @@
 
 namespace Commands {
 
-    int scanCommand(int argc, char* argv[], CacheUtils::Cache& cache, Scan::TaskScan& taskScan);
+    int scanCommand(int argc, char* argv[], CacheUtils::Cache& Cache, Scan::TaskScan& TaskScan);
 
 }
