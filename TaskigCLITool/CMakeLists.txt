@@ -20,9 +20,9 @@ file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp")
 add_executable(Taskig ${SOURCES})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_options(CodeSpace PRIVATE -O3)
+    target_compile_options(Taskig PRIVATE -O3)
     
     if (NOT WIN32)
-        target_link_options(CodeSpace PRIVATE -s)
+        target_link_options(Taskig PRIVATE -s)
     endif()
 endif()
