@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../cacheUtils/cacheUtils.hpp"
-#include "../../taskScan/taskScan.hpp"
+#include "../../CacheUtils/CacheUtils.hpp"
+#include "../../TaskScan/TaskScan.hpp"
 
 namespace Commands {
 

@@ -1,6 +1,6 @@
-#include "scan.hpp"
+#include "Scan.hpp"
 
-#include "../../cacheUtils/cacheUtils.hpp"
+#include "../../CacheUtils/CacheUtils.hpp"
 
 #include <string>
 #include <filesystem>

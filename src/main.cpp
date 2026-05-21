@@ -1,7 +1,7 @@
-#include "commands/args.hpp"
-#include "commands/scan/scan.hpp"
-#include "cacheUtils/cacheUtils.hpp"
-#include "taskScan/taskScan.hpp"
+#include "Commands/Args.hpp"
+#include "Commands/Scan/Scan.hpp"
+#include "CacheUtils/CacheUtils.hpp"
+#include "TaskScan/TaskScan.hpp"
 
 #include <filesystem>
 #include <iostream>
