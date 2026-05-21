@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../GitUtils/GitUtils.hpp"
 
 void Scan::TaskScan::scanFile(std::filesystem::path File, std::vector<Task::Task>& Tasks) {
     std::ifstream fileStream(File);
@@ -26,6 +27,7 @@ void Scan::TaskScan::scanFile(std::filesystem::path File, std::vector<Task::Task
         }
     }
 
+    GitUtils::GitUtils gitUtils;
     std::string line;
     int i = 0;
     while (std::getline(fileStream, line)) {
@@ -43,7 +45,7 @@ void Scan::TaskScan::scanFile(std::filesystem::path File, std::vector<Task::Task
         foundTask.file = File;
         foundTask.line = i;
         foundTask.text = comment.substr(comment.find(taskigMarker) + (sizeof(taskigMarker) / sizeof(char))); // [taskig] better handling, for psychopaths that don't wanna add a space after their taskigt marker
-        foundTask.author = "WIP";
+        foundTask.author = gitUtils.getAuthor(File, i);
         // [taskig] set task author based on who commited it or smth or if not commited, blame the current user
         Tasks.push_back(foundTask);
     }
