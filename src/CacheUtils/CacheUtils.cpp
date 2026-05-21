@@ -55,7 +55,7 @@ void CacheUtils::Cache::load(std::filesystem::path& Path) {
     configFile.close();
 }
 
-void CacheUtils::Cache::save(std::filesystem::path& Path, std::vector<Task::Task>& Tasks) {
+void CacheUtils::Cache::save(std::filesystem::path& Path) {
     std::filesystem::path configFilePath = Path / ".taskig";
     std::ofstream configFile(configFilePath);
 
@@ -72,7 +72,7 @@ void CacheUtils::Cache::save(std::filesystem::path& Path, std::vector<Task::Task
 
     configFile << "\n";
 
-    for (auto& task : Tasks) {
+    for (auto& task : tasks) {
         configFile << task.file << "----" << task.line << "----" << task.text << "----" << task.author << '\n'; // [taskig] switch to a seperator that can't be fucked over by the user
     }
 

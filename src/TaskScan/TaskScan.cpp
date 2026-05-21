@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-void Scan::TaskScan::scanFile(std::filesystem::path File) {
+void Scan::TaskScan::scanFile(std::filesystem::path File, std::vector<Task::Task>& Tasks) {
     std::ifstream fileStream(File);
 
     if (!fileStream.is_open()) {
@@ -17,12 +17,12 @@ void Scan::TaskScan::scanFile(std::filesystem::path File) {
 
     {
         std::vector<int> tasksToRemove; // there is prob a much better way to do this
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.at(i).file == File)
+        for (int i = 0; i < Tasks.size(); i++) {
+            if (Tasks.at(i).file == File)
                 tasksToRemove.push_back(i);
         }
-        for (int i = tasksToRemove.size(); i > 0; i--) {
-            tasks.erase(tasks.begin() + tasksToRemove.at(i));
+        for (int i = tasksToRemove.size() - 1; i >= 0; i--) {
+            Tasks.erase(Tasks.begin() + tasksToRemove.at(i));
         }
     }
 
@@ -45,7 +45,7 @@ void Scan::TaskScan::scanFile(std::filesystem::path File) {
         foundTask.text = comment.substr(comment.find(taskigMarker) + (sizeof(taskigMarker) / sizeof(char))); // [taskig] better handling, for psychopaths that don't wanna add a space after their taskigt marker
         foundTask.author = "WIP";
         // [taskig] set task author based on who commited it or smth or if not commited, blame the current user
-        tasks.push_back(foundTask);
+        Tasks.push_back(foundTask);
     }
     fileStream.close();
 

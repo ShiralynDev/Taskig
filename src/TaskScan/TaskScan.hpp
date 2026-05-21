@@ -8,8 +8,7 @@ namespace Scan {
 
     class TaskScan {
         public:
-        std::vector<Task::Task> tasks;
-        void scanFile(std::filesystem::path file);
+        void scanFile(std::filesystem::path File, std::vector<Task::Task>& Tasks);
     };
 
 }

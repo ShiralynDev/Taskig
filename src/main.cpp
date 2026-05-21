@@ -24,10 +24,10 @@ int main(int argc, char* argv[]) {
     if (command == "help") {
         Commands::Args::printCommandsAndArgs();
     } else if (command == "count") { // [taskig] add scan option
-        std::cout << TaskScan.tasks.size() << " tasks";
+        std::cout << Cache.tasks.size() << " tasks";
     } else if (command == "scan") {
         Commands::scanCommand(argc, argv, Cache, TaskScan);
-        std::cout << "Scan complete, you have " << TaskScan.tasks.size() << " tasks";
+        std::cout << "Scan complete, you have " << Cache.tasks.size() << " tasks";
     } else if (command == "list") {
         Cache.load(cacheLocation);
         for (auto& task : Cache.tasks) // [taskig] move to function with better standard printing for use in multiple functions

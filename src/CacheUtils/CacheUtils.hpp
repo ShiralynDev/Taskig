@@ -14,7 +14,7 @@ namespace CacheUtils {
         std::unordered_map<std::string, std::string> hashes;
         std::vector<Task::Task> tasks;
         void load(std::filesystem::path& Path);
-        void save(std::filesystem::path& Path, std::vector<Task::Task>& Tasks);
+        void save(std::filesystem::path& Path);
     };
 
 }

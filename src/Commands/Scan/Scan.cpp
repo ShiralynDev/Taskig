@@ -59,17 +59,17 @@ int Commands::scanCommand(int argc, char *argv[], CacheUtils::Cache& Cache, Scan
     if (!forceScan) {
         for (auto& hash : pathHashes) {
             if (Cache.hashes.find(hash.first) == Cache.hashes.end()) {
-                TaskScan.scanFile(hash.first);
+                TaskScan.scanFile(hash.first, Cache.tasks);
                 Cache.hashes.emplace(hash);
             }
         }
     } else {
         for (auto& hash : pathHashes)
-            TaskScan.scanFile(hash.first);
+            TaskScan.scanFile(hash.first, Cache.tasks);
         Cache.hashes = pathHashes;
     }
 
-    Cache.save(workingDirectory, TaskScan.tasks);
+    Cache.save(workingDirectory);
 
     return 0;
 }
