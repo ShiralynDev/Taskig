@@ -3,8 +3,11 @@
 #include "cacheUtils/cacheUtils.hpp"
 #include "taskScan/taskScan.hpp"
 
+#include <filesystem>
 #include <iostream>
 #include <string>
+
+std::filesystem::path cacheLocation = std::filesystem::current_path();
 
 CacheUtils::Cache Cache;
 Scan::TaskScan TaskScan;
@@ -26,9 +29,10 @@ int main(int argc, char* argv[]) {
         Commands::scanCommand(argc, argv, Cache, TaskScan);
         std::cout << "Scan complete, you have " << TaskScan.tasks.size() << " tasks";
     } else if (command == "list") {
-        Commands::scanCommand(argc, argv, Cache, TaskScan); // [taskig] load from cache instead, this is temp for test
-        for (auto& task : TaskScan.tasks) // [taskig] move to function with better standard printing for use in multiple functions
+        Cache.load(cacheLocation);
+        for (auto& task : Cache.tasks) // [taskig] move to function with better standard printing for use in multiple functions
             std::cout << std::filesystem::relative(task.file) << ":" << task.line << " " << task.text << " - " << task.author << std::endl;
+        std::cout << Cache.tasks.size() << " tasks";
     } else {
         std::cout << "Unkown command: " << command;
         Commands::Args::printCommandsAndArgs();

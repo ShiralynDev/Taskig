@@ -39,7 +39,7 @@ void Scan::TaskScan::ScanFile(std::filesystem::path file) {
         if (comment.find(taskigMarker) == std::string::npos) // [taskig] tolower to make sure taskig is found regardless of way it's written
             continue;
 
-        Task foundTask;
+        Task::Task foundTask;
         foundTask.file = file;
         foundTask.line = i;
         foundTask.text = comment.substr(comment.find(taskigMarker) + (sizeof(taskigMarker) / sizeof(char))); // [taskig] better handling, for psychopaths that don't wanna add a space after their taskigt marker
