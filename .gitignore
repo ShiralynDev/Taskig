@@ -1,6 +1,9 @@
 build
 .cache
 .vscode
+node_modules
+out
+*.vsix
 
 # Woo!!!! Taskig is taskig against itself!!!!!!!!!
 .taskig
